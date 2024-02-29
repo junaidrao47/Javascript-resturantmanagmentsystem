@@ -1,43 +1,113 @@
-// Global variable to store the order items
-let orderItems = [];
-let total = 0;
+// Order Management
+const orderForm = document.getElementById('orderForm');
+const ordersList = document.getElementById('ordersList');
 
-// Function to add an item to the order
-function addToOrder(itemName, itemPrice) {
-    orderItems.push({ name: itemName, price: itemPrice });
-    total += itemPrice;
-
-    updateOrderSummary();
-}
-
-// Function to update the order summary display
-function updateOrderSummary() {
-    const orderListElement = document.getElementById("orderList");
-    orderListElement.innerHTML = ''; // Clear previous order items
-
-    // Add each item to the order summary
-    orderItems.forEach(item => {
-        const orderItemElement = document.createElement("div");
-        orderItemElement.classList.add("order-item");
-        orderItemElement.innerHTML = `${item.name} - $${item.price.toFixed(2)}`;
-        orderListElement.appendChild(orderItemElement);
+// Load orders from localStorage
+function loadOrders() {
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    ordersList.innerHTML = '';
+    orders.forEach(order => {
+        const li = document.createElement('li');
+        li.textContent = `${order.name} - ${order.quantity}`;
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteOrder(order.id);
+        li.appendChild(deleteBtn);
+        ordersList.appendChild(li);
     });
-
-    // Update the total amount
-    document.getElementById("totalAmount").textContent = total.toFixed(2);
 }
 
-// Function to submit the order (reset the system)
-function submitOrder() {
-    if (orderItems.length === 0) {
-        alert("Please add items to your order!");
-        return;
-    }
-
-    alert("Order submitted successfully!");
-    orderItems = [];  // Clear the order
-    total = 0;        // Reset the total
-
-    // Clear the order summary and total
-    updateOrderSummary();
+// Add new order
+function addOrder(name, quantity) {
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const newOrder = { id: Date.now(), name, quantity };
+    orders.push(newOrder);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    loadOrders();
 }
+
+// Delete order
+function deleteOrder(id) {
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders = orders.filter(order => order.id !== id);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    loadOrders();
+}
+
+orderForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('orderName').value;
+    const quantity = document.getElementById('orderQuantity').value;
+    addOrder(name, quantity);
+});
+
+loadOrders();
+
+// Menu Management
+const menuList = document.getElementById('menuList');
+
+// Fetch and display menu items
+function loadMenu() {
+    fetch('menu.json')
+        .then(response => response.json())
+        .then(menuItems => {
+            menuItems.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `${item.name} - $${item.price}`;
+                menuList.appendChild(li);
+            });
+        })
+        .catch(error => console.log(error));
+}
+
+loadMenu();
+
+// Table Reservation
+const tableReservationForm = document.getElementById('reservationForm');
+const reservedTables = document.getElementById('reservedTables');
+
+// Load reserved tables from localStorage
+function loadReservations() {
+    let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+    reservedTables.innerHTML = '';
+    reservations.forEach(reservation => {
+        const li = document.createElement('li');
+        li.textContent = `Table ${reservation.table} reserved for ${reservation.name}`;
+        reservedTables.appendChild(li);
+    });
+}
+
+// Reserve a table
+function reserveTable(name, table) {
+    let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+    reservations.push({ id: Date.now(), name, table });
+    localStorage.setItem('reservations', JSON.stringify(reservations));
+    loadReservations();
+}
+
+tableReservationForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('customerName').value;
+    const table = document.getElementById('tableNumber').value;
+    reserveTable(name, table);
+});
+
+loadReservations();
+
+// Payment Processing
+const billForm = document.getElementById('billForm');
+const billDisplay = document.getElementById('billDisplay');
+
+// Calculate total bill with tax
+function calculateBill() {
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    let total = orders.reduce((sum, order) => sum + (order.quantity * 10), 0); // Example: $10 per item
+    let tax = total * 0.1;
+    let totalWithTax = total + tax;
+    billDisplay.innerHTML = `Total: $${total} <br> Tax: $${tax} <br> Total with Tax: $${totalWithTax}`;
+}
+
+billForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    calculateBill();
+});

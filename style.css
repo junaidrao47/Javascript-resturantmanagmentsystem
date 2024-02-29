@@ -1,83 +1,79 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Base Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
 header {
     background-color: #333;
-    color: white;
-    padding: 10px 0;
+    color: #fff;
+    padding: 15px 0;
     text-align: center;
 }
 
 h1 {
-    font-size: 2.5rem;
+    margin: 0;
 }
 
-main {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-.menu {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 40%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.menu-item {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    text-align: center;
+/* Layout */
+.container {
+    width: 80%;
+    margin: 0 auto;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    border: none;
+    background-color: #4CAF50;
     color: white;
-    border-radius: 5px;
+    padding: 10px;
+    border: none;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #45a049;
 }
 
-.order-summary {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 40%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+input[type="text"], input[type="number"] {
+    padding: 8px;
+    margin: 5px;
+    width: 200px;
 }
 
-#orderList {
+form {
     margin-bottom: 20px;
 }
 
-#submitOrder {
-    width: 100%;
-    padding: 15px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    font-size: 1.2rem;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-#submitOrder:hover {
+li {
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007BFF;
+}
+
+button:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    header {
+        text-align: left;
+        padding: 10px;
+    }
 }

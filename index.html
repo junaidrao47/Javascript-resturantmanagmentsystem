@@ -7,42 +7,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
         <h1>Restaurant Management System</h1>
     </header>
 
-    <main>
-        <section class="menu">
-            <h2>Menu</h2>
-            <div class="menu-item" id="item1">
-                <h3>Pizza</h3>
-                <p>$12.99</p>
-                <button onclick="addToOrder('Pizza', 12.99)">Add to Order</button>
-            </div>
-            <div class="menu-item" id="item2">
-                <h3>Burger</h3>
-                <p>$8.99</p>
-                <button onclick="addToOrder('Burger', 8.99)">Add to Order</button>
-            </div>
-            <div class="menu-item" id="item3">
-                <h3>Pasta</h3>
-                <p>$10.99</p>
-                <button onclick="addToOrder('Pasta', 10.99)">Add to Order</button>
-            </div>
+    <div class="container">
+        <!-- Order Management Section -->
+        <section>
+            <h2>Order Management</h2>
+            <form id="orderForm">
+                <input type="text" id="orderName" placeholder="Dish Name" required>
+                <input type="number" id="orderQuantity" placeholder="Quantity" required>
+                <button type="submit">Add Order</button>
+            </form>
+
+            <ul id="ordersList"></ul>
         </section>
 
-        <section class="order-summary">
-            <h2>Order Summary</h2>
-            <div id="orderList">
-                <!-- Order items will be dynamically added here -->
-            </div>
-            <div>
-                <strong>Total: $<span id="totalAmount">0</span></strong>
-            </div>
-            <button id="submitOrder" onclick="submitOrder()">Submit Order</button>
+        <!-- Menu Section -->
+        <section>
+            <h2>Menu</h2>
+            <ul id="menuList"></ul>
         </section>
-    </main>
+
+        <!-- Table Reservation Section -->
+        <section>
+            <h2>Table Reservation</h2>
+            <form id="reservationForm">
+                <input type="text" id="customerName" placeholder="Customer Name" required>
+                <input type="number" id="tableNumber" placeholder="Table Number" required>
+                <button type="submit">Reserve Table</button>
+            </form>
+
+            <ul id="reservedTables"></ul>
+        </section>
+
+        <!-- Payment Section -->
+        <section>
+            <h2>Payment</h2>
+            <form id="billForm">
+                <button type="submit">Calculate Bill</button>
+            </form>
+            <div id="billDisplay"></div>
+        </section>
+    </div>
 
     <script src="script.js"></script>
 </body>

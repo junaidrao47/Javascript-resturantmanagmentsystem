@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Restaurant Management System</h1>
+    </header>
+
+    <main>
+        <section class="menu">
+            <h2>Menu</h2>
+            <div class="menu-item" id="item1">
+                <h3>Pizza</h3>
+                <p>$12.99</p>
+                <button onclick="addToOrder('Pizza', 12.99)">Add to Order</button>
+            </div>
+            <div class="menu-item" id="item2">
+                <h3>Burger</h3>
+                <p>$8.99</p>
+                <button onclick="addToOrder('Burger', 8.99)">Add to Order</button>
+            </div>
+            <div class="menu-item" id="item3">
+                <h3>Pasta</h3>
+                <p>$10.99</p>
+                <button onclick="addToOrder('Pasta', 10.99)">Add to Order</button>
+            </div>
+        </section>
+
+        <section class="order-summary">
+            <h2>Order Summary</h2>
+            <div id="orderList">
+                <!-- Order items will be dynamically added here -->
+            </div>
+            <div>
+                <strong>Total: $<span id="totalAmount">0</span></strong>
+            </div>
+            <button id="submitOrder" onclick="submitOrder()">Submit Order</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
